@@ -12,10 +12,18 @@ Configuration
 These are the settings that you MUST change before deploying:
 
 - `SERVE_FROM_DOMAIN`: The domain name from which Django will be served. To be
-  added to `ALLOWED_HOSTS` in django settings. Default value is not set.
+  added to `ALLOWED_HOSTS` in django settings. Default value is not set. This
+  also replaces Django's default `example.com` SITE and becomes the default SITE
+  (with SITE_ID=1).
 
 - `HYPERKITTY_API_KEY`: Hyperkitty's API Key, should be set to the same value as
   set for the mailman-core.
+
+- `MAILMAN_ADMIN_USER`: The username for the admin user to be created by default.
+
+- `MAILMAN_ADMIN_EMAIL`: The email for the admin user to be created by default.
+
+- `SECRET_KEY`: Django's secret key, mainly used for signing cookies and others.
 
 These are the settings that are set to sane default and you do not need to
 change them unless you know what you want.

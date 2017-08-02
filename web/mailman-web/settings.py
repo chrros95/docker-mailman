@@ -32,7 +32,7 @@ import dj_database_url
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'change-this-on-your-production-server'
+SECRET_KEY = os.environ.get('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
@@ -92,8 +92,6 @@ INSTALLED_APPS = (
     'allauth.socialaccount.providers.github',
     'allauth.socialaccount.providers.gitlab',
     'allauth.socialaccount.providers.google',
-    'allauth.socialaccount.providers.facebook',
-    #'allauth.socialaccount.providers.stackexchange',
 )
 
 
@@ -283,8 +281,8 @@ SOCIALACCOUNT_PROVIDERS = {
 #
 COMPRESS_PRECOMPILERS = (
    ('text/less', 'lessc {infile} {outfile}'),
-   ('text/x-scss', 'sass -t compressed {infile} {outfile}'),
-   ('text/x-sass', 'sass -t compressed {infile} {outfile}'),
+   ('text/x-scss', 'sassc -t compressed {infile} {outfile}'),
+   ('text/x-sass', 'sassc -t compressed {infile} {outfile}'),
 )
 
 # On a production setup, setting COMPRESS_OFFLINE to True will bring a
@@ -300,7 +298,7 @@ COMPRESS_PRECOMPILERS = (
 HAYSTACK_CONNECTIONS = {
     'default': {
         'ENGINE': 'haystack.backends.whoosh_backend.WhooshEngine',
-        'PATH': os.path.join(BASE_DIR, "fulltext_index"),
+        'PATH': "/opt/mailman-web-data/fulltext_index",
         # You can also use the Xapian engine, it's faster and more accurate,
         # but requires another library.
         # http://django-haystack.readthedocs.io/en/v2.4.1/installing_search_engines.html#xapian
